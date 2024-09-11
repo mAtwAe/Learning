@@ -12,12 +12,13 @@ func main() {
 	var remainingTickets uint = 50
 	bookings := []string{}
 
-	fmt.Println("Welcome to", conferenceName, "booking application")
-	fmt.Println("test")
-	fmt.Println("We have total of", conferenceTickets, "tickets and", remainingTickets, "are stil available.")
+	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
-	fmt.Printf("Welcome to %v booking application\n", conferenceName)
-	fmt.Println(conferenceName)
+	// fmt.Println("Welcome to", conferenceName, "booking application")
+	// fmt.Println("We have total of", conferenceTickets, "tickets and", remainingTickets, "are stil available.")
+
+	// fmt.Printf("Welcome to %v booking application\n", conferenceName)
+	// fmt.Println(conferenceName)
 
 	for remainingTickets > 0 && len(bookings) < 50 {
 		var firstName string
@@ -40,8 +41,7 @@ func main() {
 		isValidEmail := strings.Contains(email, "@")
 		isValidTicketNumber := userTickets > 0 && userTickets <= remainingTickets
 
-		// bookings[0] = firstName + " " + lastName
-		// bookings[10] = "Abu"
+		// isValidCity := city != "Singapore" && city != "London"
 
 		if isValidName && isValidEmail && isValidTicketNumber {
 			remainingTickets = remainingTickets - userTickets
@@ -72,9 +72,27 @@ func main() {
 			}
 
 		} else {
-			fmt.Printf("We only have %v tickets remaining, so you can't book %v tickets\n", remainingTickets, userTickets)
+
+			if !isValidName {
+				fmt.Println("first name or last name you entered is too short")
+			}
+
+			if !isValidEmail {
+				fmt.Println("email address you entered doesn't contain @ sign")
+			}
+
+			if !isValidTicketNumber {
+				fmt.Println("number ticket is invalid")
+			}
+
+			// fmt.Printf("We only have %v tickets remaining, so you can't book %v tickets\n", remainingTickets, userTickets)
 		}
 
 	}
 
+}
+
+func greetUsers(confName string, conferenceTickets int, remainingTickets uint) {
+	fmt.Printf("Welcome to %v booking application \n", confName)
+	fmt.Println("We have total of", conferenceTickets, "tickets and", remainingTickets, "are stil available.")
 }
