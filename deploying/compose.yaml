@@ -1,0 +1,29 @@
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    develop:
+      watch:
+        - path: .
+          action: rebuild
+  db:
+    image: postgres:latest
+    restart: always
+    user: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  db_data:
