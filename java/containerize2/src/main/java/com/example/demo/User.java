@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "USERS")
 public class User {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +21,10 @@ public class User {
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
+
+    public User(){
+
+    }
 
     public User(String name, LocalDate birthDate) {
         this.name = name;
