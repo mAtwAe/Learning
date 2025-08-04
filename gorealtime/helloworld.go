@@ -23,7 +23,7 @@ func events(w http.ResponseWriter, r *http.Request) {
 	for _, token := range tokens {
 		content := fmt.Sprintf("data: %s\n\n", string(token))
 		w.Write([]byte(content))
-		w.(http.Flusher).Flush()
+		w.(http.Flusher).Flush() 
 
 		time.Sleep(time.Millisecond * 420)
 	}
