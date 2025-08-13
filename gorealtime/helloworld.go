@@ -12,7 +12,7 @@ func main() {
 	// addr := ":8080"
 	// http.HandleFunc("/events", events)
 	// http.ListenAndServe(addr, nil)
-
+	fmt.Println(Solution2(3, "1A 3C 2B 2G 5A"))
 }
 
 func events(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +23,7 @@ func events(w http.ResponseWriter, r *http.Request) {
 	for _, token := range tokens {
 		content := fmt.Sprintf("data: %s\n\n", string(token))
 		w.Write([]byte(content))
-		w.(http.Flusher).Flush() 
+		w.(http.Flusher).Flush()
 
 		time.Sleep(time.Millisecond * 420)
 	}
@@ -90,4 +90,59 @@ func Solution(N int, S string) int {
 	}
 
 	return total
+}
+
+func Solution2(n int, s string) int {
+	reserved := make(map[int]map[string]bool)
+
+	if len(s) > 0 {
+		seats := strings.Split(s, " ")
+		fmt.Println(seats)
+		for _, seat := range seats {
+			// fmt.Println("1")
+			row := seat[:len(seat)-1]
+			col := seat[len(seat)-1:]
+			rowint, _ := strconv.Atoi(row)
+			// fmt.Println(row, " ", col, " ", rowint)
+
+			if _, exist := reserved[rowint]; !exist {
+				reserved[rowint] = make(map[string]bool)
+			}
+
+			reserved[rowint][col] = true
+		}
+	}
+
+	for key, value := range reserved {
+		fmt.Println(key)
+		// fmt.Println(value)
+		for innerkey, innerval := range value {
+			fmt.Println(innerkey)
+			fmt.Println(innerval)
+		}
+	}
+
+	totalEmptySeats := 0
+
+	for row := 1; row <= n; row++ {
+
+		//loop each row to check if the row got any reserved seats
+		if _, exist := reserved[row]; !exist {
+			totalEmptySeats += 2
+			continue
+		}
+
+		block1 := !reserved[row]["A"] && !reserved[row]["B"] && !reserved[row]["C"] && !reserved[row]["D"]
+		block2 := !reserved[row]["C"] && !reserved[row]["D"] && !reserved[row]["F"] && !reserved[row]["G"]
+		block3 := !reserved[row]["F"] && !reserved[row]["G"] && !reserved[row]["H"] && !reserved[row]["J"]
+
+		if block1 && block3 {
+			totalEmptySeats += 2
+		} else if block1 || block2 || block3 {
+			totalEmptySeats++
+		}
+
+	}
+
+	return totalEmptySeats
 }
