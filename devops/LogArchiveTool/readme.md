@@ -1,1 +1,1 @@
-change the test.log to you log files name
+change the test.log to log files name to compressed the files
