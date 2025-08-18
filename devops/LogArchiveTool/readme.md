@@ -1,0 +1,1 @@
+change the test.log to you log files name
