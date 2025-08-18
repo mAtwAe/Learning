@@ -1,4 +1,4 @@
-# ServerPerformanceStatus (Linux)
+# LogArchiveTool (Linux)
 The project from: https://roadmap.sh/projects/log-archive-tool
 ## Usage
 
